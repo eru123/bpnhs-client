@@ -5,6 +5,7 @@ import About from "@/views/About.vue";
 import Login from "@/views/Login.vue";
 import Register from "@/views/Register.vue";
 import NonAuth from "@/views/NonAuth.vue";
+import Logout from "@/views/Logout";
 
 Vue.use(VueRouter);
 
@@ -34,6 +35,11 @@ const routes = [
         component: Register
       }
     ]
+  },
+  {
+    path: "/logout",
+    name: "Logout",
+    component: Logout
   }
 ];
 
