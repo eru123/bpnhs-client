@@ -6,7 +6,10 @@ const req = {
     url: "/api/register",
     params: ["user", "pass", "fname", "mname", "lname", "gender", "email"]
   },
-  login: { url: "/api/login", params: ["user", "pass"] }
+  login: { url: "/api/login", params: ["user", "pass"] },
+  verify_token: {url: "/api/auth/verify_token", params: ["token"]},
+  account_info: {url: "/api/account_info", params: ["token"]},
+  user_info: {url: "/api/user/" , params:[] } // concat url with user_id
 };
 
 const api = host => {

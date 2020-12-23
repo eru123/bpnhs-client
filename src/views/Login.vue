@@ -30,6 +30,8 @@
 <script>
 import {post} from "@/plugins/api";
 import db from "@/plugins/db";
+import prevent from "@/plugins/prevent";
+
 export default {
     name: "Login",
     data: () => ({
@@ -39,7 +41,7 @@ export default {
         error: false
     }),
     created() {
-        console.log(db.token.get());
+        prevent.auth(this.$router,{name:'Home'});
     },
     methods: {
         async login(){

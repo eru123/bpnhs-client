@@ -23,5 +23,7 @@ const set = (token) => {
 const get = () => {
     return store.get(tokenKey);
 };
-
-module.exports = {set,get,test,isStored};
+const remove = () => {
+    store.remove(tokenKey);
+}
+module.exports = {set,get,test,isStored,remove};
