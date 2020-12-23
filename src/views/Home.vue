@@ -1,18 +1,18 @@
 <template>
   <div class="home">
     <img alt="Vue logo" src="../assets/logo.png" />
-    <HelloWorld msg="Welcome to Your Vue.js App" />
   </div>
 </template>
 
 <script>
-// @ is an alias to /src
-import HelloWorld from "@/components/HelloWorld.vue";
-
+import {token} from "@/plugins/db";
 export default {
   name: "Home",
-  components: {
-    HelloWorld
+  data: () =>({
+    token: false
+  }),
+  created(){
+    this.token = token.state(this);
   }
 };
 </script>

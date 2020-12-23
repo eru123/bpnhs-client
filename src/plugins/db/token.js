@@ -2,9 +2,6 @@ const store = require('store');
 
 const tokenKey = '__bpnhs_token';
 
-const test = (token) => {
-    store.set(set,token);
-};
 const isStored = () => {
     let token = store.get(tokenKey);
     try {
@@ -26,4 +23,18 @@ const get = () => {
 const remove = () => {
     store.remove(tokenKey);
 }
-module.exports = {set,get,test,isStored,remove};
+const state = (vue) => {
+    try {
+        let tokenState = vue.$store.state.token;
+        if(tokenState === true || tokenState === false){
+            return tokenState;
+        } else if(isStored() === true){
+            return true;
+        }
+    } catch (e) {
+        return false;
+    }
+    
+    return false;
+}
+module.exports = {set,get,isStored,remove,state};
