@@ -1,11 +1,7 @@
-  
 <template>
   <v-app id="inspire">
-    <v-navigation-drawer
-      v-model="drawer"
-      app
-    >   
-        <v-list-item>
+    <v-navigation-drawer v-model="drawer" app>
+      <v-list-item>
         <v-list-item-content>
           <v-list-item-title class="title">
             Application
@@ -18,10 +14,7 @@
 
       <v-divider></v-divider>
 
-      <v-list
-        dense
-        nav
-      >
+      <v-list dense nav>
         <v-list-item
           v-for="item in items"
           :key="item.title"
@@ -51,15 +44,15 @@
 </template>
 
 <script>
-  export default {
-    data: () => ({ 
-        drawer: false ,
-        items: [
-          { title: 'Home', icon: 'mdi-home', path: {name:"Home"}},
-          { title: 'Login', icon: 'mdi-home', path: {name:"Login"}},
-          { title: 'Register', icon: 'mdi-home',path: {name: "Register"}},
-        ],
-        right: null,
-    }),
-  }
+export default {
+  data: () => ({
+    drawer: false,
+    items: [
+      { title: "Home", icon: "mdi-home", path: { name: "Home" } },
+      { title: "Login", icon: "mdi-home", path: { name: "Login" } },
+      { title: "Register", icon: "mdi-home", path: { name: "Register" } }
+    ],
+    right: null
+  })
+};
 </script>
