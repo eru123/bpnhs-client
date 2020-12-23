@@ -41,7 +41,7 @@ export default {
         error: false
     }),
     created() {
-        prevent.auth(this.$router,{name:'Home'});
+        prevent.auth(this,{name:'Home'});
     },
     methods: {
         async login(){
