@@ -28,7 +28,8 @@
     </v-container>
 </template>
 <script>
-import {post} from "@/api";
+import {post} from "@/plugins/api";
+import db from "@/plugins/db";
 export default {
     name: "Login",
     data: () => ({
@@ -37,6 +38,9 @@ export default {
         user: "",
         error: false
     }),
+    created() {
+        console.log(db.token.get());
+    },
     methods: {
         async login(){
 
@@ -47,8 +51,9 @@ export default {
                     .then(e => {
                         if(e.data.token.length > 0){
                             let token = e.data.token;
+                            db.token.set(token);
                             alert("You are now logged in");
-                            console.log(token)
+                            this.$router.push({name:"Home"})
                         }
                     })
                     .catch(() => {
