@@ -6,10 +6,15 @@ import Login from "@/views/Login.vue";
 import Register from "@/views/Register.vue";
 import NonAuth from "@/views/NonAuth.vue";
 import Logout from "@/views/Logout";
+import NotFound from "@/views/NotFound";
 
 Vue.use(VueRouter);
 
 const routes = [
+  {
+    path: "/",
+    redirect: "/home"
+  },
   {
     path: "/home",
     name: "Home",
@@ -40,6 +45,11 @@ const routes = [
     path: "/logout",
     name: "Logout",
     component: Logout
+  },
+  {
+    path: "*",
+    name: "NotFound",
+    component: NotFound
   }
 ];
 
