@@ -1,6 +1,6 @@
 const axios = require("./axios");
 
-const req = require('./url');
+const req = require("./url");
 
 const api = host => {
   const urlFix = r => {

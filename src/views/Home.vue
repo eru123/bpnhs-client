@@ -5,13 +5,13 @@
 </template>
 
 <script>
-import {token} from "@/plugins/db";
+import { token } from "@/plugins/db";
 export default {
   name: "Home",
-  data: () =>({
+  data: () => ({
     token: false
   }),
-  created(){
+  created() {
     this.token = token.state(this);
   }
 };

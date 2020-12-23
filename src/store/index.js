@@ -8,7 +8,7 @@ export default new Vuex.Store({
     token: null
   },
   mutations: {
-    token(state,value){
+    token(state, value) {
       state.token = value;
     }
   },

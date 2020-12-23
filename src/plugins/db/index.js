@@ -1,4 +1,3 @@
-const token = require('./token');
+const token = require("./token");
 
-
-module.exports = {token};
+module.exports = { token };
