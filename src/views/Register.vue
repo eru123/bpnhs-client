@@ -39,7 +39,7 @@
                     required
                   ></v-text-field>
                 </v-col>
-                <v-col cols="12">
+                <v-col cols="12" sm="6" md="6">
                   <v-text-field
                     v-model="lname"
                     :rules="[rules.req, rules.minName, rules.maxName]"
@@ -52,6 +52,16 @@
                     prepend-icon="mdi-account-edit"
                     required
                   ></v-text-field>
+                </v-col>
+                <v-col cols="12" sm="6" md="6">
+                  <v-select
+                    :items="['male', 'female']"
+                    :rules="[rules.gender]"
+                    label="Gender"
+                    v-model="gender"
+                    :hint="'You selected ' + gender"
+                    prepend-icon="mdi-human-male-female"
+                  ></v-select>
                 </v-col>
                 <v-col cols="12">
                   <v-text-field
@@ -81,15 +91,51 @@
                   ></v-text-field>
                 </v-col>
                 <v-col cols="12">
+                  <v-text-field
+                    v-model="phone"
+                    label="Mobile Phone"
+                    :rules="[rules.req, rules.phone]"
+                    required
+                    prepend-icon="mdi-phone"
+                  ></v-text-field>
+                </v-col>
+                <v-col cols="12">
+                  <v-text-field
+                    v-model="address"
+                    label="Address"
+                    :rules="[rules.req]"
+                    required
+                    prepend-icon="mdi-crosshairs-gps"
+                  ></v-text-field>
+                </v-col>
+                <v-col cols="12" sm="6" md="6">
                   <v-select
-                    :items="['male', 'female']"
-                    :rules="[rules.gender]"
-                    label="Gender"
-                    v-model="gender"
-                    :hint="'You selected ' + gender"
-                    prepend-icon="mdi-human-male-female"
+                    v-model="position"
+                    :rules="[rules.req]"
+                    label="Position in School"
+                    :items="positions"
+                    v-on:change="updateLevels"
+                    v-on:click="updateLevels"
+                    prepend-icon="mdi-account-tie"
+                    required
                   ></v-select>
                 </v-col>
+                <v-col cols="12" sm="6" md="6">
+                  <v-select
+                    v-model="level"
+                    :label="
+                      position != ''
+                        ? position.charAt(0).toUpperCase() +
+                          position.slice(1).toLowerCase() +
+                          ' Level'
+                        : 'Level'
+                    "
+                    :items="levels"
+                    prepend-icon="mdi-account-details"
+                    required
+                  ></v-select>
+                </v-col>
+
                 <v-col cols="12">
                   <v-text-field
                     v-model="pass"
@@ -126,20 +172,16 @@
                   ></v-text-field>
                 </v-col>
                 <v-col cols="12" class="text-right">
-					<v-btn
-                        class="ml-4 mb-4"
-                        color="error"
-                        @click="reset"
-                      >
-                        <v-icon>mdi-trash-can</v-icon> Clear Form
-                      </v-btn>
-					  <v-btn
-                        class="ml-4 mb-4"
-                        color="info"
-                        @click="resetValidation"
-                      >
-                        <v-icon>mdi-format-clear</v-icon> Reset Validation
-                      </v-btn>
+                  <v-btn class="ml-4 mb-4" color="error" @click="reset">
+                    <v-icon>mdi-trash-can</v-icon> Clear Form
+                  </v-btn>
+                  <v-btn
+                    class="ml-4 mb-4"
+                    color="info"
+                    @click="resetValidation"
+                  >
+                    <v-icon>mdi-format-clear</v-icon> Reset Validation
+                  </v-btn>
                 </v-col>
                 <v-col cols="12" class="mt-4">
                   <v-btn
@@ -166,7 +208,6 @@
 import { post } from "@/plugins/api";
 import db from "@/plugins/db";
 import prevent from "@/plugins/prevent";
-
 export default {
   name: "Register",
   data: () => ({
@@ -183,27 +224,40 @@ export default {
     gender: "",
     password: "",
     cpass: "",
+    position: "",
+    level: "0",
     showP: false,
     showC: false,
+    phone: "",
+    address: "",
     err: {
       user: true,
       fname: true,
       lname: true,
       mname: true,
       email: true,
-      pass: true,
+      pass: true
     },
     rules: {
-      req: (value) => !!value || "Required.",
-      email: (v) => /.+@.+\..+/.test(v) || "Invalid E-mail format",
-      minUser: (v) => (v && v.length >= 3) || "Min 3 characters",
-      maxUser: (v) => (v && v.length <= 36) || "Max 36 characters",
-      minName: (v) => (v && v.length >= 2) || "Min 2 characters",
-      maxName: (v) => (v && v.length <= 36) || "Max 36 characters",
-      minPass: (v) => (v && v.length >= 4) || "Min 4 characters",
-      maxPass: (v) => (v && v.length <= 1024) || "Max 36 characters",
-      gender: (v) => v == "male" || v == "female" || "Select your gender",
+      req: value => !!value || "Required.",
+      email: v => /.+@.+\..+/.test(v) || "Invalid E-mail format",
+      minUser: v => (v && v.length >= 3) || "Min 3 characters",
+      maxUser: v => (v && v.length <= 36) || "Max 36 characters",
+      minName: v => (v && v.length >= 2) || "Min 2 characters",
+      maxName: v => (v && v.length <= 36) || "Max 36 characters",
+      minPass: v => (v && v.length >= 4) || "Min 4 characters",
+      maxPass: v => (v && v.length <= 1024) || "Max 36 characters",
+      gender: v =>
+        (v && (v == "male" || v == "female")) || "Select your gender",
+      phone: v =>
+        (v &&
+          /^[+]*[(]{0,1}[0-9]{1,4}[)]{0,1}[-\s./0-9]*$/.test(v) &&
+          v.length <= 20 &&
+          v.length >= 7) ||
+        "Invalid mobile phone format"
     },
+    positions: ["student", "teacher", "staff", "admin"],
+    levels: []
   }),
   created() {
     prevent.auth(this, { name: "Home" });
@@ -213,7 +267,7 @@ export default {
       this.loading = true;
       let respond = false;
       post("register", this.formData())
-        .then(async (e) => {
+        .then(async e => {
           respond = true;
           console.log(e.data);
           if (typeof e.data.status == "boolean" && e.data.status === true) {
@@ -242,7 +296,7 @@ export default {
     async login() {
       this.loading = true;
       post("login", { user: this.user, pass: this.pass })
-        .then((e) => {
+        .then(e => {
           if (e.data.token.length > 0) {
             let token = e.data.token;
             db.token.set(token);
@@ -263,7 +317,7 @@ export default {
       }
     },
     reset() {
-      this.$refs.registerForm.reset();
+      this.$router.go(0);
     },
     resetValidation() {
       this.$refs.registerForm.resetValidation();
@@ -277,13 +331,28 @@ export default {
         email: this.email,
         gender: this.gender,
         pass: this.pass,
+        position: this.position,
+        level: this.level,
+        phone: this.phone,
+        address: this.address
       };
     },
+    updateLevels() {
+      if (this.position == "student") {
+        this.levels = ["7", "8", "9", "10", "11", "12"];
+      } else if (this.position == "teacher") {
+        this.levels = ["1", "2", "3", "4"];
+      } else if (this.position == "staff") {
+        this.levels = ["1", "2", "3", "4", "5", "6", "7", "8", "9", "10"];
+      } else if (this.position == "admin") {
+        this.levels = ["1", "2", "3", "4", "5", "6", "7", "8", "9", "10"];
+      }
+    }
   },
   computed: {
     passwordMatch() {
       return () => this.pass === this.cpass || "Password does not match";
-    },
-  },
+    }
+  }
 };
 </script>
