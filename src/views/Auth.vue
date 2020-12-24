@@ -49,19 +49,19 @@ export default {
     token: false,
     items: [
       { title: "Home", icon: "mdi-home", path: { name: "Home" } },
-      { title: "About", icon: "mdi-information", path: { name: "About" } },
+      { title: "About", icon: "mdi-alpha-a-circle", path: { name: "About" } },
       {
         title: "Terms and Conditions",
         icon: "mdi-license",
-        path: { name: "TermsAndConditions" },
+        path: { name: "TermsAndConditions" }
       },
-      { title: "Logout", icon: "mdi-power", path: { name: "Logout" } },
+      { title: "Logout", icon: "mdi-power", path: { name: "Logout" } }
     ],
-    right: null,
+    right: null
   }),
   created() {
     prevent.unauth(this, { name: "Login" });
     // this.token = token.state(this);
-  },
+  }
 };
 </script>

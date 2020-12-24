@@ -46,7 +46,7 @@ export default {
     drawer: null,
     token: false,
     items: [],
-    right: null,
+    right: null
   }),
   created() {
     this.nav();
@@ -59,51 +59,51 @@ export default {
         this.items.push({
           title: "Home",
           icon: "mdi-home",
-          path: { name: "Start" },
+          path: { name: "Start" }
         });
         this.items.push({
           title: "Login",
           icon: "mdi-login",
-          path: { name: "Login" },
+          path: { name: "Login" }
         });
         this.items.push({
           title: "Register",
           icon: "mdi-text-account",
-          path: { name: "Register" },
+          path: { name: "Register" }
         });
         this.items.push({
           title: "About",
-          icon: "mdi-information",
-          path: { name: "About" },
+          icon: "mdi-alpha-a-circle",
+          path: { name: "About" }
         });
         this.items.push({
           title: "Terms and Conditions",
           icon: "mdi-license",
-          path: { name: "TermsAndConditions" },
+          path: { name: "TermsAndConditions" }
         });
       } else {
         this.items.push({
           title: "Home",
           icon: "mdi-home",
-          path: { name: "Home" },
+          path: { name: "Home" }
         });
         this.items.push({
           title: "About",
-          icon: "mdi-information",
-          path: { name: "About" },
+          icon: "mdi-alpha-a-circle",
+          path: { name: "About" }
         });
         this.items.push({
           title: "Terms and Conditions",
           icon: "mdi-license",
-          path: { name: "TermsAndConditions" },
+          path: { name: "TermsAndConditions" }
         });
         this.items.push({
           title: "Logout",
           icon: "mdi-power",
-          path: { name: "Logout" },
+          path: { name: "Logout" }
         });
       }
-    },
-  },
+    }
+  }
 };
 </script>

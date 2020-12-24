@@ -12,6 +12,6 @@ export default {
   name: "Start",
   created() {
     prevent.auth(this, { name: "Home" });
-  },
+  }
 };
 </script>
