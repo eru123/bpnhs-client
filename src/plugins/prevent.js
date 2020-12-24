@@ -29,7 +29,7 @@ const unauth = async (vue, path) => {
   if (!token.isStored()) {
     vue.$store.commit("token", false);
     vue.$router.push(path);
-  } else if (this.$store.state.token === null) {
+  } else if (vue.$store.state.token === null) {
     vue.$store.commit("token", true);
   }
 };

@@ -15,8 +15,13 @@
                   <v-text-field
                     v-model="fname"
                     :rules="[rules.req, rules.minName, rules.maxName]"
+                    :error-messages="
+                      err.fname === true ? undefined : err.fname || undefined
+                    "
+                    v-on:keyup="err.fname = true"
                     label="Firstname"
                     maxlength="36"
+                    prepend-icon="mdi-account-edit"
                     required
                   ></v-text-field>
                 </v-col>
@@ -24,8 +29,13 @@
                   <v-text-field
                     v-model="mname"
                     :rules="[rules.req, rules.minName, rules.maxName]"
+                    :error-messages="
+                      err.mname === true ? undefined : err.mname || undefined
+                    "
+                    v-on:keyup="err.mname = true"
                     label="Middlename"
                     maxlength="36"
+                    prepend-icon="mdi-account-edit"
                     required
                   ></v-text-field>
                 </v-col>
@@ -33,8 +43,13 @@
                   <v-text-field
                     v-model="lname"
                     :rules="[rules.req, rules.minName, rules.maxName]"
+                    :error-messages="
+                      err.lname === true ? undefined : err.lname || undefined
+                    "
+                    v-on:keyup="err.lname = true"
                     label="Lastname"
                     maxlength="36"
+                    prepend-icon="mdi-account-edit"
                     required
                   ></v-text-field>
                 </v-col>
@@ -43,9 +58,12 @@
                     v-model="user"
                     label="Username"
                     :rules="[rules.req, rules.minUser, rules.maxUser]"
-                    hint="Username format [a-bA-Z0-9_]"
+                    :error-messages="
+                      err.user === true ? undefined : err.user || undefined
+                    "
+                    v-on:keyup="err.user = true"
                     required
-                    prepend-icon="mdi-account"
+                    prepend-icon="mdi-account-circle"
                   ></v-text-field>
                 </v-col>
                 <v-col cols="12">
@@ -53,6 +71,10 @@
                     v-model="email"
                     label="E-mail"
                     :rules="[rules.req, rules.email]"
+                    :error-messages="
+                      err.email === true ? undefined : err.email || undefined
+                    "
+                    v-on:keyup="err.email = true"
                     hint="E-mail is valid"
                     required
                     prepend-icon="mdi-email"
@@ -61,10 +83,11 @@
                 <v-col cols="12">
                   <v-select
                     :items="['male', 'female']"
+                    :rules="[rules.gender]"
                     label="Gender"
                     v-model="gender"
-                    hint="Select your gender"
-                    prepend-icon="mdi-gender"
+                    :hint="'You selected ' + gender"
+                    prepend-icon="mdi-human-male-female"
                   ></v-select>
                 </v-col>
                 <v-col cols="12">
@@ -74,7 +97,11 @@
                     :rules="[rules.req, rules.minPass, rules.maxPass]"
                     :type="showP ? 'text' : 'password'"
                     label="Password"
-                    hint="At least 4 characters"
+                    :hint="pass.length >= 8 ? 'Passwork OK' : 'Weak Password'"
+                    :error-messages="
+                      err.pass === true ? undefined : err.pass || undefined
+                    "
+                    v-on:keyup="err.pass = true"
                     counter
                     prepend-icon="mdi-lock"
                     @click:append="showP = !showP"
@@ -88,13 +115,33 @@
                     :rules="[rules.req, passwordMatch]"
                     :type="showC ? 'text' : 'password'"
                     label="Confirm Password"
-                    hint="Password matched"
-                    prepend-icon="mdi-lock"
+                    :hint="
+                      pass.length > 0
+                        ? 'Password matched'
+                        : 'Confirm your password'
+                    "
+                    prepend-icon="mdi-lock-outline"
                     @click:append="showC = !showC"
                     required
                   ></v-text-field>
                 </v-col>
-                <v-col cols="12">
+                <v-col cols="12" class="text-right">
+					<v-btn
+                        class="ml-4 mb-4"
+                        color="error"
+                        @click="reset"
+                      >
+                        <v-icon>mdi-trash-can</v-icon> Clear Form
+                      </v-btn>
+					  <v-btn
+                        class="ml-4 mb-4"
+                        color="info"
+                        @click="resetValidation"
+                      >
+                        <v-icon>mdi-format-clear</v-icon> Reset Validation
+                      </v-btn>
+                </v-col>
+                <v-col cols="12" class="mt-4">
                   <v-btn
                     :disabled="!valid"
                     color="primary"
@@ -133,71 +180,110 @@ export default {
     mname: "",
     lname: "",
     email: "",
-    gender: "other",
+    gender: "",
     password: "",
     cpass: "",
     showP: false,
     showC: false,
-
+    err: {
+      user: true,
+      fname: true,
+      lname: true,
+      mname: true,
+      email: true,
+      pass: true,
+    },
     rules: {
-      req: value => !!value || "Required.",
-      email: v => /.+@.+\..+/.test(v) || "Invalid E-mail format",
-      minUser: v => (v && v.length >= 3) || "Min 3 characters",
-      maxUser: v => (v && v.length <= 36) || "Max 36 characters",
-      minName: v => (v && v.length >= 2) || "Min 2 characters",
-      maxName: v => (v && v.length <= 36) || "Max 36 characters",
-      minPass: v => (v && v.length >= 4) || "Min 4 characters",
-      maxPass: v => (v && v.length <= 1024) || "Max 36 characters"
-    }
+      req: (value) => !!value || "Required.",
+      email: (v) => /.+@.+\..+/.test(v) || "Invalid E-mail format",
+      minUser: (v) => (v && v.length >= 3) || "Min 3 characters",
+      maxUser: (v) => (v && v.length <= 36) || "Max 36 characters",
+      minName: (v) => (v && v.length >= 2) || "Min 2 characters",
+      maxName: (v) => (v && v.length <= 36) || "Max 36 characters",
+      minPass: (v) => (v && v.length >= 4) || "Min 4 characters",
+      maxPass: (v) => (v && v.length <= 1024) || "Max 36 characters",
+      gender: (v) => v == "male" || v == "female" || "Select your gender",
+    },
   }),
   created() {
     prevent.auth(this, { name: "Home" });
   },
   methods: {
     async register() {
-      console.log("validated");
+      this.loading = true;
+      let respond = false;
+      post("register", this.formData())
+        .then(async (e) => {
+          respond = true;
+          console.log(e.data);
+          if (typeof e.data.status == "boolean" && e.data.status === true) {
+            alert("Account successfully created");
+            if (confirm("Do you want to login now?")) {
+              return await this.login();
+            } else {
+              this.$router.go(0);
+            }
+          } else if (typeof e.data.errors == "object") {
+            this.err = e.data.errors;
+            console.log(e.data.errors);
+          }
+        })
+        .catch(() => {
+          if (respond === true) {
+            alert("Invalid Registration Form");
+          } else {
+            alert("Failed to contact server");
+          }
+        })
+        .finally(() => {
+          this.loading = false;
+        });
     },
     async login() {
-      if (this.user.length > 0 && this.pass.length > 0) {
-        this.loading = false;
-        this.loading = true;
-        post("login", { user: this.user, pass: this.pass })
-          .then(e => {
-            if (e.data.token.length > 0) {
-              let token = e.data.token;
-              db.token.set(token);
-              alert("You are now logged in");
-              this.$router.push({ name: "Home" });
-            }
-          })
-          .catch(() => {
-            this.error = true;
-            alert("Invalid credentials");
-          })
-          .finally(() => {
-            this.loading = false;
-          });
-      } else {
-        this.error = true;
-        alert("Input both username and password!");
-      }
+      this.loading = true;
+      post("login", { user: this.user, pass: this.pass })
+        .then((e) => {
+          if (e.data.token.length > 0) {
+            let token = e.data.token;
+            db.token.set(token);
+            this.$router.push({ name: "Home" });
+          }
+        })
+        .catch(() => {
+          this.error = true;
+          alert("Invalid credentials");
+        })
+        .finally(() => {
+          this.loading = false;
+        });
     },
     validate() {
-      if (this.$refs.loginForm.validate()) {
+      if (this.$refs.registerForm.validate()) {
         this.register();
       }
     },
     reset() {
-      this.$refs.form.reset();
+      this.$refs.registerForm.reset();
     },
     resetValidation() {
-      this.$refs.form.resetValidation();
-    }
+      this.$refs.registerForm.resetValidation();
+    },
+    formData() {
+      return {
+        user: this.user,
+        fname: this.fname,
+        mname: this.mname,
+        lname: this.lname,
+        email: this.email,
+        gender: this.gender,
+        pass: this.pass,
+      };
+    },
   },
   computed: {
     passwordMatch() {
       return () => this.pass === this.cpass || "Password does not match";
-    }
-  }
+    },
+  },
 };
 </script>

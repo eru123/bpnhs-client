@@ -51,7 +51,7 @@ export default {
     loading: false,
     pass: "",
     user: "",
-    error: false
+    error: false,
   }),
   created() {
     prevent.auth(this, { name: "Home" });
@@ -62,11 +62,10 @@ export default {
         this.loading = false;
         this.loading = true;
         post("login", { user: this.user, pass: this.pass })
-          .then(e => {
+          .then((e) => {
             if (e.data.token.length > 0) {
               let token = e.data.token;
               db.token.set(token);
-              alert("You are now logged in");
               this.$router.push({ name: "Home" });
             }
           })
@@ -81,7 +80,7 @@ export default {
         this.error = true;
         alert("Input both username and password!");
       }
-    }
-  }
+    },
+  },
 };
 </script>

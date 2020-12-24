@@ -27,7 +27,7 @@ import { post } from "@/plugins/api";
 
 export default {
   name: "Logout",
-  data: () => ({ dest: { name: "Login" } }),
+  data: () => ({ dest: { name: "Home" } }),
   created() {
     if (confirm("Are you sure you want to logout?")) {
       if (token.isStored()) {
@@ -49,6 +49,6 @@ export default {
     } else {
       this.$router.go(-1);
     }
-  }
+  },
 };
 </script>
