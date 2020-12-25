@@ -59,3 +59,30 @@ sdk.dir = /home/USERNAME/DevTools/Android
 ```bash
 yarn capacitor:build
 ```
+
+## Android Icon
+
+### cordova-res
+
+Install cordova locally
+
+```bash
+yarn global add cordova-res
+```
+
+### Files
+
+Create files with the following names and sizes
+
+- `/resources/android/icon.png` (png|jpg) must be at least 1024×1024px.
+- `/resources/android/splash.png`(png|jpg) must be at least 2732×2732px.
+- `/resources/android/.png` must be at least 432×432px
+- `/resources/android/.png` must be at least 432×432px
+
+### Generate and copy
+
+Generate and copy icons to the android project directory
+
+```bash
+cordova-res android --skip-config --copy
+```
