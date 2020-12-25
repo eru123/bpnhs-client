@@ -1,5 +1,5 @@
 const api = require("./api");
 
-const host = "http://bpnhs.local";
+const host = "https://bpnhs-api.000webhostapp.com";
 
 module.exports = api(host);
