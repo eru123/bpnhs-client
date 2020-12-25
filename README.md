@@ -75,9 +75,9 @@ yarn global add cordova-res
 Create files with the following names and sizes
 
 - `/resources/android/icon.png` (png|jpg) must be at least 1024×1024px.
-- `/resources/android/splash.png`(png|jpg) must be at least 2732×2732px.
-- `/resources/android/.png` must be at least 432×432px
-- `/resources/android/.png` must be at least 432×432px
+- `/resources/android/splash.png` (png|jpg) must be at least 2732×2732px.
+- `/resources/android/icon-foreground.png` must be at least 432×432px
+- `/resources/android/icon-background.png` must be at least 432×432px
 
 ### Generate and copy
 
