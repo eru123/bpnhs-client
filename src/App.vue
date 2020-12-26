@@ -10,8 +10,5 @@ export default {
   data: () => ({
     //
   }),
-  created() {
-    verifySession(this, { name: "Login" });
-  },
 };
 </script>
