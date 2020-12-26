@@ -51,7 +51,7 @@ export default {
     loading: false,
     pass: "",
     user: "",
-    error: false,
+    error: false
   }),
   created() {
     prevent.auth(this, { name: "Home" });
@@ -62,7 +62,7 @@ export default {
         this.loading = true;
         let rec = false;
         post("login", { user: this.user, pass: this.pass })
-          .then((e) => {
+          .then(e => {
             if (e.data.token.length > 0) {
               rec = true;
               let token = e.data.token;
@@ -85,7 +85,7 @@ export default {
         this.error = true;
         alert("Input both username and password!");
       }
-    },
-  },
+    }
+  }
 };
 </script>

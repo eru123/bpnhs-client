@@ -1,50 +1,50 @@
 module.exports = {
-    register: {
-        super: {
-            p: "register"
-        },
-        params: [
-            "user",
-            "pass",
-            "fname",
-            "mname",
-            "lname",
-            "gender",
-            "email",
-            "position",
-            "level",
-            "phone",
-            "address"
-        ]
+  register: {
+    super: {
+      p: "register"
     },
-    login: {
-        super: {
-            p: "login"
-        },
-        params: ["user", "pass"]
+    params: [
+      "user",
+      "pass",
+      "fname",
+      "mname",
+      "lname",
+      "gender",
+      "email",
+      "position",
+      "level",
+      "phone",
+      "address"
+    ]
+  },
+  login: {
+    super: {
+      p: "login"
     },
-    logout: {
-        super: {
-            p: "logout"
-        },
-        params: ["token"]
+    params: ["user", "pass"]
+  },
+  logout: {
+    super: {
+      p: "logout"
     },
-    verify_token: {
-        super: {
-            p: "verify_token"
-        },
-        params: ["token"]
+    params: ["token"]
+  },
+  verify_token: {
+    super: {
+      p: "verify_token"
     },
-    account_info: {
-        super: {
-            p: "account_info"
-        },
-        params: ["token"]
+    params: ["token"]
+  },
+  account_info: {
+    super: {
+      p: "account_info"
     },
-    user_info: {
-        super: {
-            p: "user"
-        },
-        params: ["id"]
-    }
+    params: ["token"]
+  },
+  user_info: {
+    super: {
+      p: "user"
+    },
+    params: ["id"]
+  }
 };

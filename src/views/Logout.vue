@@ -49,6 +49,6 @@ export default {
     } else {
       this.$router.go(-1);
     }
-  },
+  }
 };
 </script>

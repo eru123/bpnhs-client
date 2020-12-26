@@ -49,33 +49,33 @@ export default {
       {
         title: "Home",
         icon: "mdi-home",
-        path: { name: "Start" },
+        path: { name: "Start" }
       },
       {
         title: "Login",
         icon: "mdi-login",
-        path: { name: "Login" },
+        path: { name: "Login" }
       },
       {
         title: "Register",
         icon: "mdi-text-account",
-        path: { name: "Register" },
+        path: { name: "Register" }
       },
       {
         title: "About",
         icon: "mdi-alpha-a-circle",
-        path: { name: "NAAbout" },
+        path: { name: "NAAbout" }
       },
       {
         title: "Terms and Conditions",
         icon: "mdi-license",
-        path: { name: "NATermsAndConditions" },
-      },
+        path: { name: "NATermsAndConditions" }
+      }
     ],
-    right: null,
+    right: null
   }),
   created() {
     this.token = token.state(this);
-  },
+  }
 };
 </script>
