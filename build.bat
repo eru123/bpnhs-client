@@ -1,0 +1,1 @@
+cls && yarn lint && yarn capacitor:build && cd android && gradlew assemble && cd .. && explorer android/app/build

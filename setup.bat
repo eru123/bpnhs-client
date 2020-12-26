@@ -1,0 +1,1 @@
+cls yarn cap add android && cordova-res android --skip-config --copy

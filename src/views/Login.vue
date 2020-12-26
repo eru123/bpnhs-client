@@ -59,11 +59,12 @@ export default {
   methods: {
     async login() {
       if (this.user.length > 0 && this.pass.length > 0) {
-        this.loading = false;
         this.loading = true;
+        let rec = false;
         post("login", { user: this.user, pass: this.pass })
           .then(e => {
             if (e.data.token.length > 0) {
+              rec = true;
               let token = e.data.token;
               db.token.set(token);
               this.$router.push({ name: "Home" });
@@ -71,7 +72,11 @@ export default {
           })
           .catch(() => {
             this.error = true;
-            alert("Invalid credentials");
+            if (rec === true) {
+              alert("Invalid credentials");
+            } else {
+              alert("Failed to contact server");
+            }
           })
           .finally(() => {
             this.loading = false;

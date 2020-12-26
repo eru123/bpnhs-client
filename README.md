@@ -86,3 +86,11 @@ Generate and copy icons to the android project directory
 ```bash
 cordova-res android --skip-config --copy
 ```
+
+## Automatic Build
+
+### Windows
+
+```bash
+setup && build
+```
