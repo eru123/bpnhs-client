@@ -41,7 +41,7 @@
 
 <script>
 import prevent from "@/plugins/prevent";
-// import { token } from "@/plugins/db";
+import { token } from "@/plugins/db";
 
 export default {
   data: () => ({
@@ -53,15 +53,15 @@ export default {
       {
         title: "Terms and Conditions",
         icon: "mdi-license",
-        path: { name: "ATermsAndConditions" }
+        path: { name: "ATermsAndConditions" },
       },
-      { title: "Logout", icon: "mdi-power", path: { name: "Logout" } }
+      { title: "Logout", icon: "mdi-power", path: { name: "Logout" } },
     ],
-    right: null
+    right: null,
   }),
   created() {
     prevent.unauth(this, { name: "Login" });
-    // this.token = token.state(this);
-  }
+    this.token = token.state(this);
+  },
 };
 </script>
