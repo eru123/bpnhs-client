@@ -272,11 +272,7 @@ export default {
           console.log(e.data);
           if (typeof e.data.status == "boolean" && e.data.status === true) {
             alert("Account successfully created");
-            if (confirm("Do you want to login now?")) {
-              return await this.login();
-            } else {
-              this.$router.go(0);
-            }
+            return await this.login();
           } else if (typeof e.data.errors == "object") {
             this.err = e.data.errors;
             console.log(e.data.errors);
