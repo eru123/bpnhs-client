@@ -205,7 +205,7 @@
   </v-container>
 </template>
 <script>
-import { post } from "@/plugins/api";
+import post from "@/plugins/api";
 import db from "@/plugins/db";
 import prevent from "@/plugins/prevent";
 export default {
@@ -236,28 +236,28 @@ export default {
       lname: true,
       mname: true,
       email: true,
-      pass: true
+      pass: true,
     },
     rules: {
-      req: value => !!value || "Required.",
-      email: v => /.+@.+\..+/.test(v) || "Invalid E-mail format",
-      minUser: v => (v && v.length >= 3) || "Min 3 characters",
-      maxUser: v => (v && v.length <= 36) || "Max 36 characters",
-      minName: v => (v && v.length >= 2) || "Min 2 characters",
-      maxName: v => (v && v.length <= 36) || "Max 36 characters",
-      minPass: v => (v && v.length >= 4) || "Min 4 characters",
-      maxPass: v => (v && v.length <= 1024) || "Max 36 characters",
-      gender: v =>
+      req: (value) => !!value || "Required.",
+      email: (v) => /.+@.+\..+/.test(v) || "Invalid E-mail format",
+      minUser: (v) => (v && v.length >= 3) || "Min 3 characters",
+      maxUser: (v) => (v && v.length <= 36) || "Max 36 characters",
+      minName: (v) => (v && v.length >= 2) || "Min 2 characters",
+      maxName: (v) => (v && v.length <= 36) || "Max 36 characters",
+      minPass: (v) => (v && v.length >= 4) || "Min 4 characters",
+      maxPass: (v) => (v && v.length <= 1024) || "Max 36 characters",
+      gender: (v) =>
         (v && (v == "male" || v == "female")) || "Select your gender",
-      phone: v =>
+      phone: (v) =>
         (v &&
           /^[+]*[(]{0,1}[0-9]{1,4}[)]{0,1}[-\s./0-9]*$/.test(v) &&
           v.length <= 20 &&
           v.length >= 7) ||
-        "Invalid mobile phone format"
+        "Invalid mobile phone format",
     },
     positions: ["student", "teacher", "staff", "admin"],
-    levels: []
+    levels: [],
   }),
   created() {
     prevent.auth(this, { name: "Home" });
@@ -267,7 +267,7 @@ export default {
       this.loading = true;
       let respond = false;
       post("register", this.formData())
-        .then(async e => {
+        .then(async (e) => {
           respond = true;
           console.log(e.data);
           if (typeof e.data.status == "boolean" && e.data.status === true) {
@@ -296,7 +296,7 @@ export default {
     async login() {
       this.loading = true;
       post("login", { user: this.user, pass: this.pass })
-        .then(e => {
+        .then((e) => {
           if (e.data.token.length > 0) {
             let token = e.data.token;
             db.token.set(token);
@@ -334,7 +334,7 @@ export default {
         position: this.position,
         level: this.level,
         phone: this.phone,
-        address: this.address
+        address: this.address,
       };
     },
     updateLevels() {
@@ -347,12 +347,12 @@ export default {
       } else if (this.position == "admin") {
         this.levels = ["1", "2", "3", "4", "5", "6", "7", "8", "9", "10"];
       }
-    }
+    },
   },
   computed: {
     passwordMatch() {
       return () => this.pass === this.cpass || "Password does not match";
-    }
-  }
+    },
+  },
 };
 </script>

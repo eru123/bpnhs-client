@@ -45,65 +45,37 @@ export default {
   data: () => ({
     drawer: null,
     token: false,
-    items: [],
-    right: null
+    items: [
+      {
+        title: "Home",
+        icon: "mdi-home",
+        path: { name: "Start" },
+      },
+      {
+        title: "Login",
+        icon: "mdi-login",
+        path: { name: "Login" },
+      },
+      {
+        title: "Register",
+        icon: "mdi-text-account",
+        path: { name: "Register" },
+      },
+      {
+        title: "About",
+        icon: "mdi-alpha-a-circle",
+        path: { name: "NAAbout" },
+      },
+      {
+        title: "Terms and Conditions",
+        icon: "mdi-license",
+        path: { name: "NATermsAndConditions" },
+      },
+    ],
+    right: null,
   }),
   created() {
-    this.nav();
+    this.token = token.state(this);
   },
-  methods: {
-    nav() {
-      this.token = token.state(this);
-      this.items = [];
-      if (this.token != true) {
-        this.items.push({
-          title: "Home",
-          icon: "mdi-home",
-          path: { name: "Start" }
-        });
-        this.items.push({
-          title: "Login",
-          icon: "mdi-login",
-          path: { name: "Login" }
-        });
-        this.items.push({
-          title: "Register",
-          icon: "mdi-text-account",
-          path: { name: "Register" }
-        });
-        this.items.push({
-          title: "About",
-          icon: "mdi-alpha-a-circle",
-          path: { name: "About" }
-        });
-        this.items.push({
-          title: "Terms and Conditions",
-          icon: "mdi-license",
-          path: { name: "TermsAndConditions" }
-        });
-      } else {
-        this.items.push({
-          title: "Home",
-          icon: "mdi-home",
-          path: { name: "Home" }
-        });
-        this.items.push({
-          title: "About",
-          icon: "mdi-alpha-a-circle",
-          path: { name: "About" }
-        });
-        this.items.push({
-          title: "Terms and Conditions",
-          icon: "mdi-license",
-          path: { name: "TermsAndConditions" }
-        });
-        this.items.push({
-          title: "Logout",
-          icon: "mdi-power",
-          path: { name: "Logout" }
-        });
-      }
-    }
-  }
 };
 </script>

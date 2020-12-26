@@ -23,7 +23,7 @@
 </template>
 <script>
 import { token } from "@/plugins/db";
-import { post } from "@/plugins/api";
+import post from "@/plugins/api";
 
 export default {
   name: "Logout",
@@ -49,6 +49,6 @@ export default {
     } else {
       this.$router.go(-1);
     }
-  }
+  },
 };
 </script>
