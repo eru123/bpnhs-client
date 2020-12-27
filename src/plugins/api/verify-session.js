@@ -10,16 +10,16 @@ const verify = (vue, path) => {
   if (token.isStored()) {
     let t = token.get();
     let res = false;
-    api("verify_token", { token: t })
+    return api("verify_token", { token: t })
       .then(e => {
         res = true;
         if (e.data.status !== true) {
-          notice(vue,path);
+          notice(vue, path);
         }
       })
       .catch(() => {
         if (res === true) {
-          notice(vue,path);
+          notice(vue, path);
         }
       });
   } else {
