@@ -1,7 +1,7 @@
 const axios = require("axios");
 const fcoder = require("./form-urlencode");
 
-const post = async function(url, data) {
+const post = function(url, data) {
   const options = {
     method: "post",
     url: url,
@@ -10,20 +10,11 @@ const post = async function(url, data) {
       "Content-Type": "application/x-www-form-urlencoded"
     }
   };
-  return await axios(options);
+  return axios(options);
 };
-const get = async function(url, data) {
-  // const options = {
-  //   method: "get",
-  //   url: url,
-  //   data: ,
-  //   headers: {
-  //     "Content-Type": "application/x-www-form-urlencoded",
-  //   },
-  // };
+const get = function(url, data) {
   let uri = url + "?" + fcoder(data);
-  return await axios.get(uri);
+  return axios.get(uri);
 };
 
-module.exports.post = post;
-module.exports.get = get;
+module.exports = { get, post };
