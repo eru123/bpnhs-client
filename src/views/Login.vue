@@ -38,9 +38,16 @@
         </v-card>
       </v-flex>
     </v-layout>
+    <Alert
+      title="Login Error"
+      :show="error"
+      :message="errorMessage"
+      @close="onAlertClose"
+    />
   </v-container>
 </template>
 <script>
+import Alert from "@/components/Alert";
 import post from "@/plugins/api";
 import db from "@/plugins/db";
 import prevent from "@/plugins/prevent";
@@ -51,7 +58,8 @@ export default {
     loading: false,
     pass: "",
     user: "",
-    error: false
+    error: false,
+    errorMessage: "",
   }),
   created() {
     prevent.auth(this, { name: "Home" });
@@ -62,30 +70,36 @@ export default {
         this.loading = true;
         let rec = false;
         post("login", { user: this.user, pass: this.pass })
-          .then(e => {
+          .then((e) => {
+            rec = true;
             if (e.data.token.length > 0) {
-              rec = true;
               let token = e.data.token;
               db.token.set(token);
               this.$router.push({ name: "Home" });
             }
           })
           .catch(() => {
-            this.error = true;
             if (rec === true) {
-              alert("Invalid credentials");
+              this.errorMessage = "Invalid credentials";
             } else {
-              alert("Failed to contact server");
+              this.errorMessage = "Failed to contact server";
             }
+            this.error = true;
           })
           .finally(() => {
             this.loading = false;
           });
       } else {
         this.error = true;
-        alert("Input both username and password!");
+        this.errorMessage = "Input both username and password!";
       }
-    }
-  }
+    },
+    onAlertClose(val) {
+      this.error = val;
+    },
+  },
+  components: {
+    Alert,
+  },
 };
 </script>

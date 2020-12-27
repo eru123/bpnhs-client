@@ -17,19 +17,29 @@
             </div>
           </v-flex>
         </v-layout>
+        <Confirm
+          :show="show"
+          title="Logout"
+          message="Are you sure you want tot logout?"
+          @confirm="onCloseConfirm"
+        />
       </v-container>
     </v-main>
   </v-app>
 </template>
 <script>
+import Confirm from "@/components/Confirm";
 import { token } from "@/plugins/db";
 import post from "@/plugins/api";
 
 export default {
   name: "Logout",
-  data: () => ({ dest: { name: "Home" } }),
+  data: () => ({ dest: { name: "Home" }, show: false }),
   created() {
-    if (confirm("Are you sure you want to logout?")) {
+    this.show = true;
+  },
+  methods: {
+    xlogout() {
       if (token.isStored()) {
         let t = token.get();
         post("logout", { token: t })
@@ -46,9 +56,25 @@ export default {
       } else {
         this.$router.push(this.dest);
       }
-    } else {
-      this.$router.go(-1);
-    }
-  }
+    },
+    nativeLogout() {
+      if (confirm("Are you sure you want to logout?")) {
+        this.xlogout();
+      } else {
+        this.$router.go(-1);
+      }
+    },
+    onCloseConfirm(val) {
+      this.show = false;
+      if (val === true) {
+        this.xlogout();
+      } else {
+        this.$router.go(-1);
+      }
+    },
+  },
+  components: {
+    Confirm,
+  },
 };
 </script>

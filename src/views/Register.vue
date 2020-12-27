@@ -202,9 +202,16 @@
         </v-card>
       </v-flex>
     </v-layout>
+    <Alert
+      :show="alert.show"
+      :message="alert.message"
+      :title="alert.title"
+      @close="onAlertClose"
+    />
   </v-container>
 </template>
 <script>
+import Alert from "@/components/Alert";
 import post from "@/plugins/api";
 import db from "@/plugins/db";
 import prevent from "@/plugins/prevent";
@@ -214,8 +221,9 @@ export default {
     loading: false,
     pass: "",
     user: "",
-    error: false,
-    dialog: true,
+    alert: { show: false, message: "", title: "" },
+    registred: false,
+    failedLogin: false,
     valid: false,
     fname: "",
     mname: "",
@@ -236,28 +244,28 @@ export default {
       lname: true,
       mname: true,
       email: true,
-      pass: true
+      pass: true,
     },
     rules: {
-      req: value => !!value || "Required.",
-      email: v => /.+@.+\..+/.test(v) || "Invalid E-mail format",
-      minUser: v => (v && v.length >= 3) || "Min 3 characters",
-      maxUser: v => (v && v.length <= 36) || "Max 36 characters",
-      minName: v => (v && v.length >= 2) || "Min 2 characters",
-      maxName: v => (v && v.length <= 36) || "Max 36 characters",
-      minPass: v => (v && v.length >= 4) || "Min 4 characters",
-      maxPass: v => (v && v.length <= 1024) || "Max 36 characters",
-      gender: v =>
+      req: (value) => !!value || "Required.",
+      email: (v) => /.+@.+\..+/.test(v) || "Invalid E-mail format",
+      minUser: (v) => (v && v.length >= 3) || "Min 3 characters",
+      maxUser: (v) => (v && v.length <= 36) || "Max 36 characters",
+      minName: (v) => (v && v.length >= 2) || "Min 2 characters",
+      maxName: (v) => (v && v.length <= 36) || "Max 36 characters",
+      minPass: (v) => (v && v.length >= 4) || "Min 4 characters",
+      maxPass: (v) => (v && v.length <= 1024) || "Max 36 characters",
+      gender: (v) =>
         (v && (v == "male" || v == "female")) || "Select your gender",
-      phone: v =>
+      phone: (v) =>
         (v &&
           /^[+]*[(]{0,1}[0-9]{1,4}[)]{0,1}[-\s./0-9]*$/.test(v) &&
           v.length <= 20 &&
           v.length >= 7) ||
-        "Invalid mobile phone format"
+        "Invalid mobile phone format",
     },
     positions: ["student", "teacher", "staff", "admin"],
-    levels: []
+    levels: [],
   }),
   created() {
     prevent.auth(this, { name: "Home" });
@@ -267,22 +275,38 @@ export default {
       this.loading = true;
       let respond = false;
       post("register", this.formData())
-        .then(async e => {
+        .then(async (e) => {
           respond = true;
-          console.log(e.data);
           if (typeof e.data.status == "boolean" && e.data.status === true) {
-            alert("Account successfully created");
-            return await this.login();
+            this.alert = {
+              show: true,
+              message: "Account successfully created",
+              title: "Success",
+            };
+            this.registered = true;
           } else if (typeof e.data.errors == "object") {
             this.err = e.data.errors;
-            console.log(e.data.errors);
+            this.alert = {
+              show: true,
+              message:
+                "Invalid Registration Form, Make sure you typed all information with a correct character format.",
+              title: "Error",
+            };
           }
         })
         .catch(() => {
           if (respond === true) {
-            alert("Invalid Registration Form");
+            this.alert = {
+              show: true,
+              message: "Invalid Registration Form",
+              title: "Error",
+            };
           } else {
-            alert("Failed to contact server");
+            this.alert = {
+              show: true,
+              message: "Failed to contact server",
+              title: "Error",
+            };
           }
         })
         .finally(() => {
@@ -292,7 +316,7 @@ export default {
     async login() {
       this.loading = true;
       post("login", { user: this.user, pass: this.pass })
-        .then(e => {
+        .then((e) => {
           if (e.data.token.length > 0) {
             let token = e.data.token;
             db.token.set(token);
@@ -301,7 +325,12 @@ export default {
         })
         .catch(() => {
           this.error = true;
-          alert("Invalid credentials");
+          this.alert = {
+            show: true,
+            message: "Failed to login your new account, try to login manually.",
+            title: "Login Error",
+          };
+          this.failedLogin = true;
         })
         .finally(() => {
           this.loading = false;
@@ -330,7 +359,7 @@ export default {
         position: this.position,
         level: this.level,
         phone: this.phone,
-        address: this.address
+        address: this.address,
       };
     },
     updateLevels() {
@@ -343,12 +372,25 @@ export default {
       } else if (this.position == "admin") {
         this.levels = ["1", "2", "3", "4", "5", "6", "7", "8", "9", "10"];
       }
-    }
+    },
+    onAlertClose(val) {
+      if (this.registered === true) {
+        this.login();
+        this.registered = false;
+      } else if (this.failedLogin === true) {
+        this.$router.push({ name: "Login" });
+      } else {
+        this.alert.show = val;
+      }
+    },
   },
   computed: {
     passwordMatch() {
       return () => this.pass === this.cpass || "Password does not match";
-    }
-  }
+    },
+  },
+  components: {
+    Alert,
+  },
 };
 </script>
