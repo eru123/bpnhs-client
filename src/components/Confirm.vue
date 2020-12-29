@@ -24,12 +24,12 @@ export default {
     },
     disagree() {
       this.$emit("confirm", false);
-    },
+    }
   },
   props: {
     title: String,
     show: Boolean,
-    message: String,
-  },
+    message: String
+  }
 };
 </script>

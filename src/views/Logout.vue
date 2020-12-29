@@ -20,7 +20,7 @@
         <Confirm
           :show="show"
           title="Logout"
-          message="Are you sure you want tot logout?"
+          message="Are you sure you want to logout?"
           @confirm="onCloseConfirm"
         />
       </v-container>

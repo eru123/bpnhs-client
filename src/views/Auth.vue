@@ -53,15 +53,15 @@ export default {
       {
         title: "Terms and Conditions",
         icon: "mdi-license",
-        path: { name: "ATermsAndConditions" },
+        path: { name: "ATermsAndConditions" }
       },
-      { title: "Logout", icon: "mdi-power", path: { name: "Logout" } },
+      { title: "Logout", icon: "mdi-power", path: { name: "Logout" } }
     ],
-    right: null,
+    right: null
   }),
   async created() {
     await prevent.unauth(this, { name: "Login" });
     this.token = token.state(this);
-  },
+  }
 };
 </script>

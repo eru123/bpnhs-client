@@ -9,6 +9,6 @@ export default {
   name: "Home",
   async created() {
     await verifySession(this, { name: "Login" });
-  },
+  }
 };
 </script>

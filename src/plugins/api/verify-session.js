@@ -2,9 +2,9 @@ const api = require("./index");
 const token = require("../db/token");
 
 const notice = (vue, path) => {
-  alert("Your session is expired, you need to login again.")
+  alert("Your session is expired, you need to login again.");
   vue.$router.push(path);
-}
+};
 
 const verify = (vue, path) => {
   if (token.isStored()) {
@@ -23,7 +23,7 @@ const verify = (vue, path) => {
         }
       });
   } else {
-    notice(vue,path);
+    notice(vue, path);
   }
 };
 
