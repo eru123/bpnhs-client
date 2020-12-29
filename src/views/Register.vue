@@ -276,6 +276,7 @@ export default {
       let respond = false;
       post("register", this.formData())
         .then(async (e) => {
+          console.log(e);
           respond = true;
           if (typeof e.data.status == "boolean" && e.data.status === true) {
             this.alert = {
@@ -290,6 +291,12 @@ export default {
               show: true,
               message:
                 "Invalid Registration Form, Make sure you typed all information with a correct character format.",
+              title: "Error",
+            };
+          } else {
+            this.alert = {
+              show: true,
+              message: "Invalid Server Response, Please try again later.",
               title: "Error",
             };
           }
