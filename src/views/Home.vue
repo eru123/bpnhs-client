@@ -7,8 +7,8 @@
 import verifySession from "@/plugins/api/verify-session";
 export default {
   name: "Home",
-  async created() {
+  async beforeCreate() {
     await verifySession(this, { name: "Login" });
-  }
+  },
 };
 </script>

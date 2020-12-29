@@ -10,8 +10,8 @@
 import prevent from "@/plugins/prevent";
 export default {
   name: "Start",
-  created() {
-    prevent.auth(this, { name: "Home" });
-  }
+  async beforeCreate() {
+    await prevent.auth(this, { name: "Home" });
+  },
 };
 </script>
