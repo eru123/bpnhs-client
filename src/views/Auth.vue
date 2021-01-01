@@ -1,6 +1,6 @@
 <template>
   <v-app id="inspire">
-    <v-navigation-drawer v-model="drawer" app>
+    <v-navigation-drawer v-model="drawer" app :dark="darkMode">
       <v-list-item>
         <v-list-item-content>
           <v-list-item-title class="title"> Application </v-list-item-title>
@@ -26,14 +26,38 @@
             <v-list-item-title>{{ item.title }}</v-list-item-title>
           </v-list-item-content>
         </v-list-item>
+        <v-list-item
+          link
+          :color="darkMode ? 'white' : 'primary'"
+          @click="toggleDarkMode"
+        >
+          <v-list-item-icon>
+            <v-icon>{{
+              darkMode ? "mdi-toggle-switch" : "mdi-toggle-switch-off-outline"
+            }}</v-icon>
+          </v-list-item-icon>
+
+          <v-list-item-content>
+            <v-list-item-title
+              >Switch to
+              {{ darkMode ? "Light" : "Dark" }} mode</v-list-item-title
+            >
+          </v-list-item-content>
+        </v-list-item>
       </v-list>
     </v-navigation-drawer>
 
-    <v-app-bar app color="primary" dark outlined elevation="0">
+    <v-app-bar
+      app
+      :color="darkMode ? 'dark' : 'primary'"
+      dark
+      outlined
+      elevation="0"
+    >
       <v-app-bar-nav-icon @click="drawer = !drawer"></v-app-bar-nav-icon>
       <v-toolbar-title>Brooke's Point NHS</v-toolbar-title>
     </v-app-bar>
-    <v-main color="#333">
+    <v-main :class="darkMode ? 'grey darken-3 white--text' : ''">
       <router-view></router-view>
     </v-main>
   </v-app>
@@ -55,13 +79,25 @@ export default {
         icon: "mdi-license",
         path: { name: "ATermsAndConditions" },
       },
-      { title: "Logout", icon: "mdi-power", path: { name: "Logout" } },
+      { title: "Logout", icon: "mdi-logout", path: { name: "Logout" } },
     ],
     right: null,
   }),
   async beforeCreate() {
     await prevent.unauth(this, { name: "Login" });
     this.token = token.state(this);
+  },
+  methods: {
+    toggleDarkMode() {
+      let mode = !this.darkMode;
+      console.log("mode:");
+      this.$store.commit("darkMode", mode);
+    },
+  },
+  computed: {
+    darkMode() {
+      return this.$store.state.darkMode === true ? true : false;
+    },
   },
 };
 </script>
