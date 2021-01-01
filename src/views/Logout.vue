@@ -74,15 +74,15 @@ export default {
       } else {
         this.$router.go(-1);
       }
-    },
+    }
   },
   components: {
-    Confirm,
+    Confirm
   },
   computed: {
     darkMode() {
       return this.$store.state.darkMode;
-    },
-  },
+    }
+  }
 };
 </script>

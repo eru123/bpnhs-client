@@ -2,7 +2,7 @@ import Vue from "vue";
 import Vuex from "vuex";
 import store from "store";
 
-const darkMode = store.get('darkMode') === true ? true : false;
+const darkMode = store.get("darkMode") === true ? true : false;
 
 Vue.use(Vuex);
 
@@ -17,7 +17,7 @@ export default new Vuex.Store({
     },
     darkMode(state, value) {
       let dMode = value === true ? true : false;
-      store.set('darkMode', dMode);
+      store.set("darkMode", dMode);
       state.darkMode = dMode;
     }
   },

@@ -13,6 +13,6 @@ export default {
   name: "Start",
   async beforeCreate() {
     await prevent.auth(this, { name: "Home" });
-  },
+  }
 };
 </script>

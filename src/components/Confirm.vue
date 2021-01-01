@@ -30,17 +30,17 @@ export default {
     },
     disagree() {
       this.$emit("confirm", false);
-    },
+    }
   },
   props: {
     title: String,
     show: Boolean,
-    message: String,
+    message: String
   },
   computed: {
     darkMode() {
       return this.$store.state.darkMode;
-    },
-  },
+    }
+  }
 };
 </script>
