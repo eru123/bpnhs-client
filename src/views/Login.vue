@@ -1,8 +1,8 @@
 <template>
-  <v-container fill-height>
+  <v-container fill-height color="black">
     <v-layout align-center justify-center>
       <v-flex>
-        <v-card max-width="400" class="mx-auto pa-4" flat>
+        <v-card max-width="400" class="mx-auto pa-4" flat :dark="darkMode">
           <v-card-title align-center justify-center>
             <v-spacer></v-spacer>
             <h1>Login</h1>
@@ -25,7 +25,7 @@
           </v-card-text>
           <v-card-actions>
             <v-btn
-              color="primary"
+              :color="darkMode ? 'dark' : 'primary'"
               depressed
               block
               large
@@ -100,6 +100,11 @@ export default {
   },
   components: {
     Alert,
+  },
+  computed: {
+    darkMode() {
+      return this.$store.state.darkMode;
+    },
   },
 };
 </script>

@@ -2,7 +2,7 @@
   <v-container fill-height>
     <v-layout align-center justify-center>
       <v-flex>
-        <v-card max-width="600" class="mx-auto pa-4" flat>
+        <v-card max-width="600" class="mx-auto pa-4" flat :dark="darkMode">
           <v-card-title align-center justify-center>
             <v-spacer></v-spacer>
             <h1>Register</h1>
@@ -172,12 +172,16 @@
                   ></v-text-field>
                 </v-col>
                 <v-col cols="12" class="text-right">
-                  <v-btn class="ml-4 mb-4" color="error" @click="reset">
+                  <v-btn
+                    class="ml-4 mb-4"
+                    :color="darkMode ? 'dark' : 'error'"
+                    @click="reset"
+                  >
                     <v-icon>mdi-trash-can</v-icon> Clear Form
                   </v-btn>
                   <v-btn
                     class="ml-4 mb-4"
-                    color="info"
+                    :color="darkMode ? 'dark' : 'info'"
                     @click="resetValidation"
                   >
                     <v-icon>mdi-format-clear</v-icon> Reset Validation
@@ -186,7 +190,7 @@
                 <v-col cols="12" class="mt-4">
                   <v-btn
                     :disabled="!valid"
-                    color="primary"
+                    :color="darkMode ? 'dark' : 'primary'"
                     depressed
                     block
                     large
@@ -394,6 +398,9 @@ export default {
   computed: {
     passwordMatch() {
       return () => this.pass === this.cpass || "Password does not match";
+    },
+    darkMode() {
+      return this.$store.state.darkMode;
     },
   },
   components: {

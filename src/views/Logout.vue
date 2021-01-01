@@ -1,14 +1,17 @@
 <template>
   <v-app app>
     <v-main>
-      <v-container fill-height>
+      <v-container
+        fill-height
+        :class="darkMode ? 'grey darken-3 white--text' : ''"
+      >
         <v-layout align-center justify-center>
           <v-flex>
             <div align="center" max-width="400" class="mx-auto pa-4">
               <div class="mb-8">
                 <v-progress-circular
                   indeterminate
-                  color="primary"
+                  :color="darkMode ? 'white' : 'primary'"
                 ></v-progress-circular>
               </div>
               <div>
@@ -75,6 +78,11 @@ export default {
   },
   components: {
     Confirm,
+  },
+  computed: {
+    darkMode() {
+      return this.$store.state.darkMode;
+    },
   },
 };
 </script>
