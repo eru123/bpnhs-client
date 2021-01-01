@@ -1,6 +1,6 @@
 <template>
-  <v-app id="inspire">
-    <v-navigation-drawer v-model="drawer" app>
+  <v-app dark>
+    <v-navigation-drawer v-model="drawer" app :dark="darkMode">
       <v-list-item>
         <v-list-item-content>
           <v-list-item-title class="title"> Application </v-list-item-title>
@@ -16,7 +16,7 @@
           :key="item.title"
           link
           :to="item.path"
-          color="primary"
+          :color="darkMode ? 'white' : 'primary'"
         >
           <v-list-item-icon>
             <v-icon>{{ item.icon }}</v-icon>
@@ -26,14 +26,39 @@
             <v-list-item-title>{{ item.title }}</v-list-item-title>
           </v-list-item-content>
         </v-list-item>
+        <v-list-item
+          link
+          :color="darkMode ? 'white' : 'primary'"
+          @click="toggleDarkMode"
+        >
+          <v-list-item-icon>
+            <v-icon>{{
+              darkMode ? "mdi-toggle-switch" : "mdi-toggle-switch-off-outline"
+            }}</v-icon>
+          </v-list-item-icon>
+
+          <v-list-item-content>
+            <v-list-item-title
+              >Switch to
+              {{ darkMode ? "Light" : "Dark" }} mode</v-list-item-title
+            >
+          </v-list-item-content>
+        </v-list-item>
       </v-list>
     </v-navigation-drawer>
 
-    <v-app-bar app color="primary" dark outlined elevation="0">
+    <v-app-bar
+      app
+      :color="darkMode ? 'dark' : 'primary'"
+      dark
+      outlined
+      elevation="0"
+    >
       <v-app-bar-nav-icon @click="drawer = !drawer"></v-app-bar-nav-icon>
       <v-toolbar-title>Brooke's Point NHS</v-toolbar-title>
     </v-app-bar>
-    <v-main color="#333">
+
+    <v-main :class="darkMode ? 'grey darken-3 white--text' : ''">
       <router-view></router-view>
     </v-main>
   </v-app>
@@ -76,6 +101,18 @@ export default {
   }),
   beforeCreate() {
     this.token = token.state(this);
+  },
+  methods: {
+    toggleDarkMode() {
+      let mode = !this.darkMode;
+      console.log("mode:");
+      this.$store.commit("darkMode", mode);
+    },
+  },
+  computed: {
+    darkMode() {
+      return this.$store.state.darkMode;
+    },
   },
 };
 </script>
