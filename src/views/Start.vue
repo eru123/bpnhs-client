@@ -1,10 +1,7 @@
 <template>
-  <div class="home">
-    <img alt="Vue logo" src="../assets/logo.png" />
-    <router-link to="/login">Login</router-link>
-    <router-link to="/register">Register</router-link>
-    <div class="red">dfdsf</div>
-  </div>
+  <v-container>
+    <h1>Home</h1>
+  </v-container>
 </template>
 
 <script>

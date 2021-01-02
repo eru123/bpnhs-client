@@ -10,13 +10,19 @@ import NotFound from "@/views/NotFound";
 import TermsAndConditions from "@/views/TermsAndConditions";
 import Auth from "@/views/Auth";
 import Home from "@/views/Home";
+import Landing from "@/views/Landing";
 
 Vue.use(VueRouter);
 
 const routes = [
   {
     path: "/",
-    redirect: "/start"
+    redirect: "/landing"
+  },
+  {
+    path: "/landing",
+    name: "Landing",
+    component: Landing
   },
   {
     path: "/home",

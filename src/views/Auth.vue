@@ -1,5 +1,5 @@
 <template>
-  <v-app id="inspire">
+  <v-app>
     <v-navigation-drawer v-model="drawer" app :dark="darkMode">
       <v-list-item>
         <v-list-item-content>
@@ -90,7 +90,6 @@ export default {
   methods: {
     toggleDarkMode() {
       let mode = !this.darkMode;
-      console.log("mode:");
       this.$store.commit("darkMode", mode);
     }
   },

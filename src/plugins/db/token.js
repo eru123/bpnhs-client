@@ -1,6 +1,6 @@
 const store = require("store");
 
-const tokenKey = "__bpnhs_token";
+const tokenKey = "token";
 
 const isStored = () => {
   let token = store.get(tokenKey);

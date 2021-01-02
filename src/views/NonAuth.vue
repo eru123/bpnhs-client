@@ -1,5 +1,5 @@
 <template>
-  <v-app dark>
+  <v-app>
     <v-navigation-drawer v-model="drawer" app :dark="darkMode">
       <v-list-item>
         <v-list-item-content>
@@ -74,7 +74,7 @@ export default {
       {
         title: "Home",
         icon: "mdi-home",
-        path: { name: "Start" }
+        path: { name: "Landing" }
       },
       {
         title: "Login",
@@ -105,7 +105,6 @@ export default {
   methods: {
     toggleDarkMode() {
       let mode = !this.darkMode;
-      console.log("mode:");
       this.$store.commit("darkMode", mode);
     }
   },

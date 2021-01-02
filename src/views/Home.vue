@@ -4,11 +4,11 @@
   </div>
 </template>
 <script>
-import verifySession from "@/plugins/api/verify-session";
+// import verifySession from "@/plugins/api/verify-session";
 export default {
   name: "Home",
   async beforeCreate() {
-    await verifySession(this, { name: "Login" });
+    // await verifySession(this, { name: "Login" });
   }
 };
 </script>

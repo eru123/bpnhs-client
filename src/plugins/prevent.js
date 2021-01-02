@@ -7,7 +7,7 @@ const auth = async (vue, path) => {
     return await post("verify_token", { token: token.get() })
       .then(e => {
         respond = true;
-        if (e.data.valid === true) {
+        if (e.data.status === true) {
           vue.$store.commit("token", true);
           vue.$router.push(path);
         } else {
