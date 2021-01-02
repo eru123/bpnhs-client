@@ -14,7 +14,7 @@ export default {
   components: {
     Start
   },
-  async mounted() {
+  async beforeCreate() {
     await prevent.auth(this, { name: "Home" });
   },
   computed: {

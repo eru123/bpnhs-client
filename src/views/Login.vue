@@ -63,6 +63,7 @@ export default {
   }),
   async beforeCreate() {
     await prevent.auth(this, { name: "Home" });
+    console.log(this.api);
   },
   methods: {
     async login() {

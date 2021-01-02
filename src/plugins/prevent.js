@@ -9,7 +9,7 @@ const auth = async (vue, path) => {
         respond = true;
         if (e.data.status === true) {
           vue.$store.commit("token", true);
-          vue.$router.push(path);
+          vue.$router.push(path).catch(() => {});
         } else {
           throw Error("Invalid token");
         }
@@ -29,7 +29,7 @@ const auth = async (vue, path) => {
 const unauth = async (vue, path) => {
   if (!token.isStored()) {
     vue.$store.commit("token", false);
-    vue.$router.push(path);
+    vue.$router.push(path).catch(() => {});
   } else if (vue.$store.state.token === null) {
     vue.$store.commit("token", true);
   }

@@ -3,7 +3,7 @@ const token = require("../db/token");
 
 const notice = (vue, path) => {
   alert("Your session is expired, you need to login again.");
-  vue.$router.push(path);
+  vue.$router.push(path).catch(() => {});
 };
 
 const verify = (vue, path) => {
