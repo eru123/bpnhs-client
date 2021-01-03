@@ -1,3 +1,19 @@
 * {
   user-select: none;
+  &::-webkit-scrollbar {
+    width: 0.6em;
+  }
+
+  &::-webkit-scrollbar-track {
+    background: rgba($color: #fff, $alpha: 0);
+  }
+
+  &::-webkit-scrollbar-thumb {
+    background-color: #ccc;
+    outline: none;
+    border-radius: 20px;
+    &:hover {
+      background-color: #b6b6b6;
+    }
+  }
 }
