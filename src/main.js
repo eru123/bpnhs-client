@@ -6,15 +6,23 @@ import vuetify from "./plugins/vuetify";
 import "./style.scss";
 import { Plugins } from "@capacitor/core";
 const { SplashScreen } = Plugins;
+import Toast from "vue-toastification";
+import "vue-toastification/dist/index.css";
 
+const options = {
+  timeout: false,
+  hideProgressBar: true,
+};
+
+Vue.use(Toast, options);
 Vue.config.productionTip = false;
 Vue.mixin({});
 new Vue({
   router,
   store,
   vuetify,
-  render: h => h(App),
+  render: (h) => h(App),
   mounted() {
     SplashScreen.hide();
-  }
+  },
 }).$mount("#app");

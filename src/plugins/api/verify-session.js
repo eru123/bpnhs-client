@@ -2,7 +2,12 @@ const api = require("./index");
 const token = require("../db/token");
 
 const notice = (vue, path) => {
-  alert("Your session is expired, you need to login again.");
+  try {
+    vue.$toast.error("Your session is expired, you need to login again.");
+  } catch ($e) {
+    console.warn("[Verify Session] Toast Error", $e);
+  }
+  // alert("Your session is expired, you need to login again.");
   vue.$router.push(path).catch(() => {});
 };
 
@@ -11,7 +16,7 @@ const verify = (vue, path) => {
     let t = token.get();
     let res = false;
     return api("verify_token", { token: t })
-      .then(e => {
+      .then((e) => {
         res = true;
         if (e.data.status !== true) {
           notice(vue, path);

@@ -59,7 +59,7 @@ export default {
     pass: "",
     user: "",
     error: false,
-    errorMessage: ""
+    errorMessage: "",
   }),
   async beforeCreate() {
     await prevent.auth(this, { name: "Home" });
@@ -71,11 +71,12 @@ export default {
         this.loading = true;
         let rec = false;
         post("login", { user: this.user, pass: this.pass })
-          .then(e => {
+          .then((e) => {
             rec = true;
             if (e.data.token.length > 0) {
               let token = e.data.token;
               db.token.set(token);
+              this.$toast.success("Welcome back!");
               this.$router.push({ name: "Home" });
             }
           })
@@ -97,15 +98,15 @@ export default {
     },
     onAlertClose(val) {
       this.error = val;
-    }
+    },
   },
   components: {
-    Alert
+    Alert,
   },
   computed: {
     darkMode() {
       return this.$store.state.darkMode;
-    }
-  }
+    },
+  },
 };
 </script>

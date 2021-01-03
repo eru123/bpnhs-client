@@ -248,28 +248,28 @@ export default {
       lname: true,
       mname: true,
       email: true,
-      pass: true
+      pass: true,
     },
     rules: {
-      req: value => !!value || "Required.",
-      email: v => /.+@.+\..+/.test(v) || "Invalid E-mail format",
-      minUser: v => (v && v.length >= 3) || "Min 3 characters",
-      maxUser: v => (v && v.length <= 36) || "Max 36 characters",
-      minName: v => (v && v.length >= 2) || "Min 2 characters",
-      maxName: v => (v && v.length <= 36) || "Max 36 characters",
-      minPass: v => (v && v.length >= 4) || "Min 4 characters",
-      maxPass: v => (v && v.length <= 1024) || "Max 36 characters",
-      gender: v =>
+      req: (value) => !!value || "Required.",
+      email: (v) => /.+@.+\..+/.test(v) || "Invalid E-mail format",
+      minUser: (v) => (v && v.length >= 3) || "Min 3 characters",
+      maxUser: (v) => (v && v.length <= 36) || "Max 36 characters",
+      minName: (v) => (v && v.length >= 2) || "Min 2 characters",
+      maxName: (v) => (v && v.length <= 36) || "Max 36 characters",
+      minPass: (v) => (v && v.length >= 4) || "Min 4 characters",
+      maxPass: (v) => (v && v.length <= 1024) || "Max 36 characters",
+      gender: (v) =>
         (v && (v == "male" || v == "female")) || "Select your gender",
-      phone: v =>
+      phone: (v) =>
         (v &&
           /^[+]*[(]{0,1}[0-9]{1,4}[)]{0,1}[-\s./0-9]*$/.test(v) &&
           v.length <= 20 &&
           v.length >= 7) ||
-        "Invalid mobile phone format"
+        "Invalid mobile phone format",
     },
     positions: ["student", "teacher", "staff", "admin"],
-    levels: []
+    levels: [],
   }),
   async beforeCreate() {
     await prevent.auth(this, { name: "Home" });
@@ -279,14 +279,14 @@ export default {
       this.loading = true;
       let respond = false;
       post("register", this.formData())
-        .then(async e => {
+        .then(async (e) => {
           console.log(e);
           respond = true;
           if (typeof e.data.status == "boolean" && e.data.status === true) {
             this.alert = {
               show: true,
               message: "Account successfully created",
-              title: "Success"
+              title: "Success",
             };
             this.registered = true;
           } else if (typeof e.data.errors == "object") {
@@ -295,13 +295,13 @@ export default {
               show: true,
               message:
                 "Invalid Registration Form, Make sure you typed all information with a correct character format.",
-              title: "Error"
+              title: "Error",
             };
           } else {
             this.alert = {
               show: true,
               message: "Invalid Server Response, Please try again later.",
-              title: "Error"
+              title: "Error",
             };
           }
         })
@@ -310,13 +310,13 @@ export default {
             this.alert = {
               show: true,
               message: "Invalid Registration Form",
-              title: "Error"
+              title: "Error",
             };
           } else {
             this.alert = {
               show: true,
               message: "Failed to contact server",
-              title: "Error"
+              title: "Error",
             };
           }
         })
@@ -327,10 +327,11 @@ export default {
     async login() {
       this.loading = true;
       post("login", { user: this.user, pass: this.pass })
-        .then(e => {
+        .then((e) => {
           if (e.data.token.length > 0) {
             let token = e.data.token;
             db.token.set(token);
+            this.$toast.success("Welcome!");
             this.$router.push({ name: "Home" });
           }
         })
@@ -339,7 +340,7 @@ export default {
           this.alert = {
             show: true,
             message: "Failed to login your new account, try to login manually.",
-            title: "Login Error"
+            title: "Login Error",
           };
           this.failedLogin = true;
         })
@@ -370,7 +371,7 @@ export default {
         position: this.position,
         level: this.level,
         phone: this.phone,
-        address: this.address
+        address: this.address,
       };
     },
     updateLevels() {
@@ -393,7 +394,7 @@ export default {
       } else {
         this.alert.show = val;
       }
-    }
+    },
   },
   computed: {
     passwordMatch() {
@@ -401,10 +402,10 @@ export default {
     },
     darkMode() {
       return this.$store.state.darkMode;
-    }
+    },
   },
   components: {
-    Alert
-  }
+    Alert,
+  },
 };
 </script>
