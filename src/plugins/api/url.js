@@ -1,7 +1,7 @@
 module.exports = {
   register: {
     super: {
-      p: "register",
+      p: "register"
     },
     params: [
       "user",
@@ -14,49 +14,49 @@ module.exports = {
       "position",
       "level",
       "phone",
-      "address",
-    ],
+      "address"
+    ]
   },
   login: {
     super: {
-      p: "login",
+      p: "login"
     },
-    params: ["user", "pass"],
+    params: ["user", "pass"]
   },
   logout: {
     super: {
-      p: "logout",
+      p: "logout"
     },
-    params: ["token"],
+    params: ["token"]
   },
   verify_token: {
     super: {
-      p: "verify_token",
+      p: "verify_token"
     },
-    params: ["token"],
+    params: ["token"]
   },
   account_info: {
     super: {
-      p: "account_info",
+      p: "account_info"
     },
-    params: ["token"],
+    params: ["token"]
   },
   user_info: {
     super: {
-      p: "user",
+      p: "user"
     },
-    params: ["id"],
+    params: ["id"]
   },
   positions: {
     super: {
-      p: "positions",
+      p: "positions"
     },
-    params: ["r", "token"],
+    params: ["r", "token"]
   },
   admin: {
     super: {
-      p: "admin",
+      p: "admin"
     },
-    params: ["token", "r"],
-  },
+    params: ["token", "r"]
+  }
 };

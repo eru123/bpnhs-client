@@ -12,10 +12,10 @@ import prevent from "@/plugins/prevent";
 export default {
   name: "Landing",
   data: () => ({
-    rendered: false,
+    rendered: false
   }),
   components: {
-    Start,
+    Start
   },
   async beforeCreate() {
     await prevent.auth(this, { name: "Home" });
@@ -24,7 +24,7 @@ export default {
   computed: {
     darkMode() {
       return this.$store.state.darkMode;
-    },
-  },
+    }
+  }
 };
 </script>

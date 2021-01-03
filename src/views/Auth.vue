@@ -77,12 +77,12 @@ export default {
       {
         title: "Terms and Conditions",
         icon: "mdi-license",
-        path: { name: "ATermsAndConditions" },
+        path: { name: "ATermsAndConditions" }
       },
-      { title: "Logout", icon: "mdi-logout", path: { name: "Logout" } },
+      { title: "Logout", icon: "mdi-logout", path: { name: "Logout" } }
     ],
     positionsNav: [],
-    right: null,
+    right: null
   }),
   async beforeCreate() {
     await prevent.unauth(this, { name: "Login" });
@@ -98,17 +98,17 @@ export default {
     },
     getPositionsNav() {
       return api("account_info", { token: token.get() })
-        .then((e) => {
+        .then(e => {
           let data = e.data.data;
           this.$store.commit("userInfo", data);
         })
         .catch(() => ({}));
-    },
+    }
   },
   computed: {
     darkMode() {
       return this.$store.state.darkMode === true ? true : false;
-    },
-  },
+    }
+  }
 };
 </script>

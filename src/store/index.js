@@ -10,7 +10,7 @@ export default new Vuex.Store({
   state: {
     token: null,
     darkMode: darkMode,
-    userInfo: {},
+    userInfo: {}
   },
   mutations: {
     token(state, value) {
@@ -23,8 +23,8 @@ export default new Vuex.Store({
     },
     userInfo(state, value) {
       state.userInfo = typeof value == "object" ? value : {};
-    },
+    }
   },
   actions: {},
-  modules: {},
+  modules: {}
 });
