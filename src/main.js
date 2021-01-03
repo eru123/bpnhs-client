@@ -11,7 +11,7 @@ import "vue-toastification/dist/index.css";
 
 const options = {
   timeout: false,
-  hideProgressBar: true,
+  hideProgressBar: true
 };
 
 Vue.use(Toast, options);
@@ -21,8 +21,8 @@ new Vue({
   router,
   store,
   vuetify,
-  render: (h) => h(App),
+  render: h => h(App),
   mounted() {
     SplashScreen.hide();
-  },
+  }
 }).$mount("#app");

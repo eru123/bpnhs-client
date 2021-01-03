@@ -16,7 +16,7 @@ const verify = (vue, path) => {
     let t = token.get();
     let res = false;
     return api("verify_token", { token: t })
-      .then((e) => {
+      .then(e => {
         res = true;
         if (e.data.status !== true) {
           notice(vue, path);
