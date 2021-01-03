@@ -12,7 +12,7 @@
 
       <v-list dense nav>
         <v-list-item
-          v-for="item in items"
+          v-for="item in mainNav"
           :key="item.title"
           link
           :to="item.path"
@@ -66,37 +66,49 @@
 <script>
 import prevent from "@/plugins/prevent";
 import { token } from "@/plugins/db";
-
+import api from "@/plugins/api";
 export default {
   data: () => ({
     drawer: null,
     token: false,
-    items: [
+    mainNav: [
       { title: "Home", icon: "mdi-home", path: { name: "Home" } },
       { title: "About", icon: "mdi-alpha-a-circle", path: { name: "AAbout" } },
       {
         title: "Terms and Conditions",
         icon: "mdi-license",
-        path: { name: "ATermsAndConditions" }
+        path: { name: "ATermsAndConditions" },
       },
-      { title: "Logout", icon: "mdi-logout", path: { name: "Logout" } }
+      { title: "Logout", icon: "mdi-logout", path: { name: "Logout" } },
     ],
-    right: null
+    positionsNav: [],
+    right: null,
   }),
   async beforeCreate() {
     await prevent.unauth(this, { name: "Login" });
     this.token = token.state(this);
   },
+  created() {
+    this.getPositionsNav();
+  },
   methods: {
     toggleDarkMode() {
       let mode = !this.darkMode;
       this.$store.commit("darkMode", mode);
-    }
+    },
+    getPositionsNav() {
+      return api("account_info", { token: token.get() })
+        .then((e) => {
+          let data = e.data.data;
+          this.$store.commit("userInfo", data);
+        })
+        .catch(() => ({}));
+    },
   },
   computed: {
     darkMode() {
       return this.$store.state.darkMode === true ? true : false;
-    }
-  }
+    },
+  },
 };
 </script>

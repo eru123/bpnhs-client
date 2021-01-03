@@ -1,5 +1,5 @@
 <template>
-  <v-app>
+  <v-app v-if="rendered">
     <v-main :class="darkMode ? 'grey darken-3 white--text' : ''">
       <Start />
     </v-main>
@@ -11,16 +11,20 @@ import Start from "@/views/Start";
 import prevent from "@/plugins/prevent";
 export default {
   name: "Landing",
+  data: () => ({
+    rendered: false,
+  }),
   components: {
-    Start
+    Start,
   },
   async beforeCreate() {
     await prevent.auth(this, { name: "Home" });
+    this.rendered = true;
   },
   computed: {
     darkMode() {
       return this.$store.state.darkMode;
-    }
-  }
+    },
+  },
 };
 </script>

@@ -9,7 +9,8 @@ Vue.use(Vuex);
 export default new Vuex.Store({
   state: {
     token: null,
-    darkMode: darkMode
+    darkMode: darkMode,
+    userInfo: {},
   },
   mutations: {
     token(state, value) {
@@ -19,8 +20,11 @@ export default new Vuex.Store({
       let dMode = value === true ? true : false;
       store.set("darkMode", dMode);
       state.darkMode = dMode;
-    }
+    },
+    userInfo(state, value) {
+      state.userInfo = typeof value == "object" ? value : {};
+    },
   },
   actions: {},
-  modules: {}
+  modules: {},
 });
