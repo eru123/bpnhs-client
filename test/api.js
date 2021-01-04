@@ -29,7 +29,8 @@ const register = async () => {
         position: "admin",
         level: 1
     })
-        .then(e => {
+        .then(async e => {
+            if(e.data.status === true) return await login();
             return e.data;
         })
         .catch(() => {
