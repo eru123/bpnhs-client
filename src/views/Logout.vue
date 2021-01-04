@@ -78,11 +78,6 @@ export default {
   },
   components: {
     Confirm
-  },
-  computed: {
-    darkMode() {
-      return this.$store.state.darkMode;
-    }
   }
 };
 </script>

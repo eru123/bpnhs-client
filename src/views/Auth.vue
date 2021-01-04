@@ -92,10 +92,6 @@ export default {
     this.getPositionsNav();
   },
   methods: {
-    toggleDarkMode() {
-      let mode = !this.darkMode;
-      this.$store.commit("darkMode", mode);
-    },
     getPositionsNav() {
       return api("account_info", { token: token.get() })
         .then(e => {
@@ -103,11 +99,6 @@ export default {
           this.$store.commit("userInfo", data);
         })
         .catch(() => ({}));
-    }
-  },
-  computed: {
-    darkMode() {
-      return this.$store.state.darkMode === true ? true : false;
     }
   }
 };

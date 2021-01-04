@@ -20,11 +20,6 @@ export default {
   async beforeCreate() {
     await prevent.auth(this, { name: "Home" });
     this.rendered = true;
-  },
-  computed: {
-    darkMode() {
-      return this.$store.state.darkMode;
-    }
   }
 };
 </script>

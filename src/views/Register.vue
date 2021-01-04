@@ -399,9 +399,6 @@ export default {
   computed: {
     passwordMatch() {
       return () => this.pass === this.cpass || "Password does not match";
-    },
-    darkMode() {
-      return this.$store.state.darkMode;
     }
   },
   components: {

@@ -101,17 +101,6 @@ export default {
   }),
   beforeCreate() {
     this.token = token.state(this);
-  },
-  methods: {
-    toggleDarkMode() {
-      let mode = !this.darkMode;
-      this.$store.commit("darkMode", mode);
-    }
-  },
-  computed: {
-    darkMode() {
-      return this.$store.state.darkMode;
-    }
   }
 };
 </script>

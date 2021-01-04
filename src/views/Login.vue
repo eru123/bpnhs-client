@@ -101,11 +101,6 @@ export default {
   },
   components: {
     Alert
-  },
-  computed: {
-    darkMode() {
-      return this.$store.state.darkMode;
-    }
   }
 };
 </script>
