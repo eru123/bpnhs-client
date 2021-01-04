@@ -1,3 +1,5 @@
+import "./assets/css/roboto.css";
+import "./assets/css/materialdesignicons.min.css";
 import Vue from "vue";
 import App from "./App.vue";
 import router from "./router";
@@ -17,13 +19,13 @@ const options = {
 Vue.use(Toast, options);
 Vue.config.productionTip = false;
 Vue.mixin({
-  methods:{
+  methods: {
     toggleDarkMode() {
       let mode = !this.darkMode;
       this.$store.commit("darkMode", mode);
     }
   },
-  computed:{
+  computed: {
     darkMode() {
       return this.$store.state.darkMode;
     }
