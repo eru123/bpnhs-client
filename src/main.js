@@ -16,7 +16,19 @@ const options = {
 
 Vue.use(Toast, options);
 Vue.config.productionTip = false;
-Vue.mixin({});
+Vue.mixin({
+  methods:{
+    toggleDarkMode() {
+      let mode = !this.darkMode;
+      this.$store.commit("darkMode", mode);
+    }
+  },
+  computed:{
+    darkMode() {
+      return this.$store.state.darkMode;
+    }
+  }
+});
 new Vue({
   router,
   store,
