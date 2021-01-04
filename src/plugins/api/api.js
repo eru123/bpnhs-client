@@ -17,7 +17,7 @@ const api = host => {
         for (let v in req[r].super) {
           d[v] = req[r].super[v];
         }
-      }
+      } 
     } catch (e) {
       console.error(e);
     }
