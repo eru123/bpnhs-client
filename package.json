@@ -5,7 +5,7 @@
   "scripts": {
     "serve": "vue-cli-service serve --open",
     "build": "vue-cli-service build --mode production",
-    "build:deploy": "cls && del .env.local && yarn lint && vue-cli-service build --dest docs && echo VUE_APP_API_SERVER=http://localhost:8080/api.php 1>.env.local && git add docs && git commit -m 'Update' && git push",
+    "build:deploy": "cls && del .env.local && yarn lint && vue-cli-service build --dest docs && echo VUE_APP_API_SERVER=http://localhost:8080/api.php 1>.env.local && git add docs && git commit -m Deploy && git push",
     "lint": "vue-cli-service lint --fix",
     "capacitor:build": "vue-cli-service capacitor:build",
     "capacitor:serve": "vue-cli-service capacitor:serve"
